@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  background-color: #f6f8fc;
+  height: 100vh;
+}
+
+
+hr {
+  border-top: 1px solid #f1f1f1;
+}
+
+.ql-editor {
+  max-height: 300px !important;
+  height: 300px !important;
+  overflow-y: scroll;
+}
+.quill {
+  margin-bottom: 16px
+}
+
+.Toastify__toast-container {
+  width: 360px !important; 
+}

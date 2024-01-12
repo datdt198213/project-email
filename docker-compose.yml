@@ -1,0 +1,49 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345
+      - MYSQL_DATABASE=emaildb
+      - MYSQL_USER=tuantotti
+      - MYSQL_PASSWORD=12345
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - backend
+  server:
+    build: 
+      context: Backend
+      dockerfile: Dockerfile
+    container_name: backend-email
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/emaildb
+      SPRING_DATASOURCE_USER: tuantotti
+      SPRING_DATASOURCE_PASSWORD: 12345
+    depends_on:
+      - mysql
+    networks:
+      - backend
+      - frontend
+  react-web:
+    build: 
+      context: frontend
+      dockerfile: Dockerfile
+    container_name: email-web
+    ports:
+      - "4001:3000"
+    depends_on:
+      - server
+    networks:
+      - frontend
+networks:
+  backend:
+  frontend:
+
+volumes:
+  mysql-data:
